@@ -63,6 +63,7 @@ argo-cd:
         - url: https://strimzi.io/charts/
           name: strimzi
       resource.customizations.health.Job: |
+        print ("LUA:JOB CHECK")
         hs = {}
         hs.status = "Progressing"
         if obj.metadata.labels.csc ~= nil then
