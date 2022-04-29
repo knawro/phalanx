@@ -86,7 +86,7 @@ argo-cd:
           end
         end
         return hs
-      resource.customizations.useOpenLibs.Job: true
+      resource.customizations.useOpenLibs.Job: "true"
 
     rbacConfig:
       policy.csv: |
