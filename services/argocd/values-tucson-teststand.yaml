@@ -62,7 +62,7 @@ argo-cd:
           name: stable
         - url: https://strimzi.io/charts/
           name: strimzi
-      resource.customizations.health.apps.Job: |
+      resource.customizations.health.batch_Job: |
         print ("LUA:JOB CHECK")
         hs = {}
         hs.status = "Progressing"
@@ -87,7 +87,7 @@ argo-cd:
           end
         end
         return hs
-      resource.customizations.useOpenLibs.apps.Job: "true"
+      resource.customizations.useOpenLibs.batch_Job: "true"
 
     rbacConfig:
       policy.csv: |
