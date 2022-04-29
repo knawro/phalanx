@@ -62,33 +62,32 @@ argo-cd:
           name: stable
         - url: https://strimzi.io/charts/
           name: strimzi
-      resource.customizations: |-
-        Job:
-          health.lua: |
-            print ("LUA:JOB CHECK")
-            hs = {}
-            hs.status = "Progressing"
-            if obj.metadata.labels.csc ~= nil then
-              if obj.metadata.labels.csc == "dsm2-sim" then
-                if obj.status ~= nil then
-                  if obj.status.conditions ~= nil then
-                    for i, condition in ipairs(obj.status.conditions) do
-                      if condition.type == "Ready" and condition.status == "False" then
-                        hs.status = "Degraded"
-                        hs.message = condition.message
-                        return hs
-                      end
-                      if condition.type == "Ready" and condition.status == "True" then
-                        hs.status = "Healthy"
-                        hs.message = condition.message
-                        return hs
-                      end
-                    end
+      resource.customizations.health.Job: |
+        print ("LUA:JOB CHECK")
+        hs = {}
+        hs.status = "Progressing"
+        if obj.metadata.labels.csc ~= nil then
+          if obj.metadata.labels.csc == "dsm2-sim" then
+            if obj.status ~= nil then
+              if obj.status.conditions ~= nil then
+                for i, condition in ipairs(obj.status.conditions) do
+                  if condition.type == "Ready" and condition.status == "False" then
+                    hs.status = "Degraded"
+                    hs.message = condition.message
+                    return hs
+                  end
+                  if condition.type == "Ready" and condition.status == "True" then
+                    hs.status = "Healthy"
+                    hs.message = condition.message
+                    return hs
                   end
                 end
               end
             end
-            return hs
+          end
+        end
+        return hs
+      resource.customizations.useOpenLibs.Job: "true"
 
     rbacConfig:
       policy.csv: |
