@@ -43,6 +43,9 @@ kafdrop:
     hostname: data-dev.lsst.cloud
 
 chronograf:
+  image:
+    tag: nightly
+
   ingress:
     enabled: true
     hostname: data-dev.lsst.cloud
