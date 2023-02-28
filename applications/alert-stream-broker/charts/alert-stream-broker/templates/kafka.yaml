@@ -99,6 +99,11 @@ spec:
         deleteClaim: false
 
     template:
+      persistentVolumeClaim:
+        metadata:
+          annotations:
+            argocd.argoproj.io/compare-options: IgnoreExtraneous
+            argocd.argoproj.io/sync-options: Prune=false
       pod:
         {{- if .Values.kafka.nodePool.tolerations }}
         tolerations:
