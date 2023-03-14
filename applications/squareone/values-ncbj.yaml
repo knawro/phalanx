@@ -1,0 +1,6 @@
+config:
+  siteName: "Rubin Science Platform"
+  semaphoreUrl: "https://rsp.ncbj.gov.pl/semaphore"
+
+ingress:
+  tls: false
